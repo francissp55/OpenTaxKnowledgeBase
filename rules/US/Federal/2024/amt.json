@@ -1,0 +1,37 @@
+{
+  "jurisdiction": "US-Federal",
+  "taxYear": 2024,
+  "amt": {
+    "exemptionAmounts": {
+      "single": 85700,
+      "marriedJoint": 133300,
+      "marriedSeparate": 66650,
+      "headOfHousehold": 85700
+    },
+    "phaseOutThresholds": {
+      "single": 609350,
+      "marriedJoint": 1218700,
+      "marriedSeparate": 609350,
+      "headOfHousehold": 609350
+    },
+    "rates": [
+      {
+        "rate": 0.26,
+        "min": 0,
+        "max": 232600
+      },
+      {
+        "rate": 0.28,
+        "min": 232600,
+        "max": null
+      }
+    ],
+    "notes": "For married filing separately, the 26%/28% breakpoint is $116,300."
+  },
+  "citations": [
+    {
+      "source": "IRS Revenue Procedure 2023-34",
+      "url": "https://www.irs.gov/pub/irs-drop/rp-23-34.pdf"
+    }
+  ]
+}
