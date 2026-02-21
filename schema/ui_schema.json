@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UI Definition Schema",
+  "description": "Canonical schema for Excel-driven UI metadata",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "description": "List of UI element definitions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Row": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "Col": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "Type": {
+            "type": "string",
+            "enum": [
+              "input",
+              "select",
+              "checkbox",
+              "calc",
+              "label",
+              "section"
+            ]
+          },
+          "FieldID": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "Label": {
+            "type": ["string", "null"]
+          },
+          "DataType": {
+            "type": "string",
+            "enum": [
+              "number",
+              "integer",
+              "year",
+              "percent",
+              "currency",
+              "enum",
+              "string",
+              "boolean"
+            ]
+          },
+          "Required": {
+            "type": "string",
+            "enum": ["Y", "N"]
+          },
+          "BindTo": {
+            "type": ["string", "null"],
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "OptionsRange": {
+            "type": ["string", "null"]
+          },
+          "DefaultValue": {
+            "type": ["string", "number", "boolean", "null"]
+          },
+          "MinValue": {
+            "type": ["number", "null"]
+          },
+          "MaxValue": {
+            "type": ["number", "null"]
+          },
+          "Step": {
+            "type": ["number", "null"]
+          },
+          "NonNegative": {
+            "type": ["string", "null"],
+            "enum": ["Y", "N", null]
+          },
+          "HelpText": {
+            "type": ["string", "null"]
+          },
+          "Placeholder": {
+            "type": ["string", "null"]
+          },
+          "Tooltip": {
+            "type": ["string", "null"]
+          },
+          "CSSClass": {
+            "type": ["string", "null"]
+          },
+          "VisibleIf": {
+            "type": ["string", "null"]
+          },
+          "EnabledIf": {
+            "type": ["string", "null"]
+          },
+          "Format": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "Row",
+          "Col",
+          "Type",
+          "FieldID",
+          "DataType",
+          "Required"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": { "Type": { "const": "select" } }
+            },
+            "then": {
+              "required": ["OptionsRange"]
+            }
+          },
+          {
+            "if": {
+              "properties": { "Type": { "const": "calc" } }
+            },
+            "then": {
+              "properties": {
+                "DefaultValue": { "const": null },
+                "Required": { "const": "N" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": { "DataType": { "const": "enum" } }
+            },
+            "then": {
+              "required": ["OptionsRange"]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["rows"]
+}
